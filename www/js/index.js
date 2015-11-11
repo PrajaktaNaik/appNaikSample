@@ -1,49 +1,68 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
+(function($) {
+ "use strict";
+ 
+ var gApoint = 90.0;
+ 
+ var computeGrade = function()
+ {
+    var currentPoints = Number( $('#points').val() );
+    var currentGrade = "NA";
+ 
+    if (currentPoints >= gApoint)
+    {
+        currentGrade = "A";
     }
-};
+    else
+    {
+        currentGrade = "F";
+    }
+    $('#finalgrade').text(currentGrade);
+ };
+ 
+ var saveSettings = function()
+ {
+    try {
+        var aPoint = parseFloat( $('#gradeCutOff').val() );
+ 
+        localStorage.setItem('gradeCutOff', aPoint);
+        gApoint = aPoint;
+        window.history.back();
+    } catch (ex)
+    {
+        alert('Points must be a decimal value');
+    }
+ };
+
+ var cancelSettings = function()
+ {
+    localStorage.clear();
+ };
+
+ 
+ // Setup the event handlers
+ $( document ).on( "ready", function()
+                  {
+                  $('#computeGrade').on('click', computeGrade);
+                  $('#saveSettings').on('click', saveSettings);
+                  $('#cancelSettings').on('click', cancelSettings);
+
+                  var gradeCutOffSetting = localStorage.getItem('gradeCutOff');
+                  
+                  if (gradeCutOffSetting)
+                  {
+                    gApoint = parseFloat(gradeCutOffSetting);
+                  }
+                  
+                  $('#gradeCutOff').val(gApoint);
+                  
+                  });
+
+ // Load plugin
+ $( document ).on( "deviceready", function(){
+                  StatusBar.overlaysWebView( false );
+                  StatusBar.backgroundColorByName("gray");
+                  });
+ }
+
+ 
+ )(jQuery);

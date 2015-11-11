@@ -1,46 +1,54 @@
+
 <!DOCTYPE html>
-<!--
-    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
-
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
     <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>First Application</title>
-    </head>
+        <meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1">
+            <meta charset="utf-8">
+                <title>Grade Calculator</title>
+                 <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css" />
+                <script src="demos/js/jquery.js"></script>
+                <script src="jquery.mobile-1.4.5.min.js"></script>
+                <script src="js/index.js"></script>
+                </head>
+    
+    
     <body>
-        <div class="app">
-            <h1>Hi Prajakta!!</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">good work</p>
+        <div data-role="page" class="" id="mainPage">
+            <div data-role="header" class="">
+                <h1>Grade Factory</h1>
+                <a href="#settingsPage" id='settingsButton' class="ui-btn-right" data-role="button" data-icon="gear">Settings</a>
+            </div>
+            <div data-role="content" class="">
+                <form>
+                    <div data-role="fieldcontain">
+                        <label for="Points">Points</label>
+                        <input type="number" name="points" id="points" data-clear-btn="true" maxlength="3" value="" placeholder="Enter points here">
+                            </div>
+                    <p style="text-align: center;">
+                    <a href="#" id="computeGrade" data-role="button" data-icon="check">Compute Grade</a>
+                    </p>
+                    <p class="final grade">
+                    <label>Final Grade</label>
+                    <span id="finalgrade">TBD</span>
+                    </p>
+                </form>
+            </div>
+        </div>
+        <div data-role="page" class="" id="settingsPage" data-add-back-btn="true" >
+            <div data-role="header" class="">
+                <a href="#" id='cancelSettings' class="ui-btn ui-icon-delete ui-btn-icon-left" data-rel="back">Cancel</a>
+                <h1>Grade - Settings</h1>
+            </div>
+            <div data-role="content" class="">
+                <form>
+                    <input type="number" name="gradeCutOff" id="gradeCutOff" value="" placeholder="Grade Cutoff at">
+                        <p style="text-align: center;">
+                        <a href="#" id='saveSettings' data-role="button" data-inline="true" data-icon="check">Save</a>
+                        </p>
+                        </form>
             </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
+        <script src="js/index.js"></script>
     </body>
 </html>
